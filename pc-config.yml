@@ -1,0 +1,56 @@
+## Remember to call it with extra vars
+# account=$USER
+- hosts: localhost
+  become: yes
+  tasks:
+  - name: update arch packages
+    pacman:
+      update_cache: yes
+      upgrade: yes 
+  - name: install vnstat
+    pacman: name=vnstat
+  - name: install kitty for coding
+    pacman: name=kitty
+  - name: install zsh for console
+    pacman: name=zsh
+  - name: change shell
+    shell: chsh -s `which zsh`
+  - name: install ohmyzsh
+    shell: curl -L https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+  - name: install autosuggestion plugin
+    ansible.builtin.git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: "~/oh-my-zsh/plugins/zsh-autosuggestions"
+
+    # Development
+
+  - name: install node
+    pacman:
+      name: ['nodejs', 'npm']
+  - name: install nvim
+    pacman: name=neovim
+  - name: install fira code release
+    pacman: name=ttf-fira-code
+  - name: create directory fonts if not present
+    file:
+      path: ~/.local/share/fonts/nerd-fonts
+      state: directory
+      mode: 0775
+      recurse: yes
+    become: true
+    become_user: "{{ account }}"
+  - name: install fonts
+    ansible.builtin.get_url:
+      url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete.ttf 
+      dest: "~/.local/share/fonts/nerd-fonts/Fira Code Regular Nerd Font Complete.ttf"
+    become: true
+    become_user: "{{ account }}"
+
+    # Environment
+
+  - name: install browser
+    pacman: name=chromium
+  - name: install polybar
+    pacman: name=polybar
+  - name: install rofi launcher
+    pacman: name=rofi
