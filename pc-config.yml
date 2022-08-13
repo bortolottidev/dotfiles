@@ -7,8 +7,19 @@
     pacman:
       update_cache: yes
       upgrade: yes 
+
+    # Tools 
+
+  - name: install unzip
+    pacman: name=unzip
+  - name: install pbcopy required by nvim
+    pacman: name=xsel
+  - name: install ripgrep in order to grep string in telescope
+    pacman: name=ripgrep
   - name: install vnstat
     pacman: name=vnstat
+  - name: install fortune for random phrase at nvim start
+    pacman: name=fortune-mod
   - name: install kitty for coding
     pacman: name=kitty
   - name: install zsh for console
