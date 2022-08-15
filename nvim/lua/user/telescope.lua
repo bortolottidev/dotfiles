@@ -1,5 +1,5 @@
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
+local telescope = _SAFE_LOAD_PLUGIN("telescope")
+if not telescope then
   return
 end
 

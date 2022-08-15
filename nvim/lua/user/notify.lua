@@ -8,3 +8,6 @@ notification_manager.setup()
 
 -- setup nvim notify by default
 vim.notify = notification_manager
+
+-- telescope extension
+require("telescope").load_extension("notify")

@@ -1,11 +1,16 @@
+require "utils"
+
 -- vim options
 require "user.options"
 
 -- remapping 
 require "user.keymaps"
 
--- plugins installed
+-- load plugins
 require "user.plugins"
+
+-- notification manager for error and warnings
+require "user.notify"
 
 -- theme
 require "user.colorscheme"
@@ -29,5 +34,3 @@ require "user.indentline"
 require "user.alpha"
 require "user.whichkey"
 require "user.autocommands"
--- cosmetic
-require "user.notify"
