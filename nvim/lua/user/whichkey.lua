@@ -1,5 +1,5 @@
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
+local which_key = _SAFE_LOAD_PLUGIN("which-key")
+if not which_key then
   return
 end
 
