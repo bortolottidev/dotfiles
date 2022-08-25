@@ -1,5 +1,5 @@
-local status_ok, bufferline = pcall(require, "bufferline")
-if not status_ok then
+local bufferline = _SAFE_LOAD_PLUGIN("bufferline")
+if not bufferline then
   return
 end
 
@@ -14,7 +14,8 @@ bufferline.setup {
     -- and so changing this is NOT recommended, this is intended
     -- as an escape hatch for people who cannot bear it for whatever reason
     indicator_icon = "▎",
-    buffer_close_icon = "",
+    buffer_close_icon = '',
+    -- buffer_close_icon = "",
     -- buffer_close_icon = '',
     modified_icon = "●",
     close_icon = "",

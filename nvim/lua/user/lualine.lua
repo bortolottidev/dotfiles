@@ -3,7 +3,7 @@ if not lualine then
 	return
 end
 
-local hide_in_width = function()
+local large_screen_width = function()
 	return vim.fn.winwidth(0) > 80
 end
 
@@ -32,7 +32,8 @@ local diff = {
 	"diff",
 	colored = false,
 	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-  cond = hide_in_width
+  cond = large_screen_width,
+  padding = { left = 1, right = 2 }
 }
 
 local mode = {

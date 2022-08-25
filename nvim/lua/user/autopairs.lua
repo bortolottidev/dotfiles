@@ -1,6 +1,5 @@
--- Setup nvim-cmp.
-local status_ok, npairs = pcall(require, "nvim-autopairs")
-if not status_ok then
+  local npairs = _SAFE_LOAD_PLUGIN("nvim-autopairs")
+if not npairs then
   return
 end
 
@@ -26,6 +25,8 @@ npairs.setup {
 }
 
 local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+
+-- after autocomplete dont insert more parenthesis
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
   return

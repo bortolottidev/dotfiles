@@ -1,9 +1,12 @@
-local status_ok, alpha = pcall(require, "alpha")
-if not status_ok then
+local alpha = _SAFE_LOAD_PLUGIN("alpha")
+if not alpha then
 	return
 end
 
+--local plugins_loaded = _PLUGIN_LOADED()
 local dashboard = require("alpha.themes.dashboard")
+
+--local plugin_loaded_formatted = string.format("            [%d/%d] plugins_loaded              ", plugins_loaded, plugins_loaded)
 dashboard.section.header.val = {
 	[[                               __                ]],
 	[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
@@ -11,6 +14,8 @@ dashboard.section.header.val = {
 	[[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
 	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
 	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+  [[                                                 ]],
+ -- plugin_loaded_formatted
 }
 dashboard.section.buttons.val = {
 	dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
