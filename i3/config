@@ -219,5 +219,5 @@ for_window [class="^.*"] border pixel 2
 # Default workspace 
 assign [class="^Chromium$"] $ws2
 
-
-
+# Run Vbox guest utils
+bash /usr/bin/VBoxClient-all

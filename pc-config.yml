@@ -65,3 +65,5 @@
     pacman: name=polybar
   - name: install rofi launcher
     pacman: name=rofi
+  - name: install TMUX
+    pacman: name=tmux
