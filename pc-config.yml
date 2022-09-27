@@ -67,3 +67,11 @@
     pacman: name=rofi
   - name: install TMUX
     pacman: name=tmux
+  - name: install TMUX plugin manager
+    ansible.builtin.git:
+      repo: https://github.com/tmux-plugins/tpm
+      dest: $HOME/.config/tmux/plugins/tpm
+      single_branch: yes
+      version: master
+    become: true
+    become_user: "{{ account }}"
