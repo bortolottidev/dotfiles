@@ -79,11 +79,12 @@ local opts = {
 
 local mappings = {
   ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
-  ["n"] = { "<cmd> NvimTreeFocus <cr>", "Focus on Explorer"},
   ["b"] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     "Buffers",
   },
+  ["d"] = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Diagnostic"},
+  ["n"] = { "<cmd> NvimTreeFocus <cr>", "Focus on Explorer"},
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },

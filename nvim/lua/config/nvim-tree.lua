@@ -1,5 +1,5 @@
-local status_ok, nvim_tree = pcall(require, "nvim-tree")
-if not status_ok then
+local nvim_tree = _SAFE_LOAD_PLUGIN("nvim-tree")
+if not nvim_tree then
   return
 end
 
@@ -11,6 +11,8 @@ end
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
 nvim_tree.setup {
+  auto_reload_on_write = true,
+  reload_on_bufenter = true,
   update_focused_file = {
     enable = true,
     update_cwd = true,
@@ -45,7 +47,7 @@ nvim_tree.setup {
   },
   disable_netrw = true,
   hijack_netrw = true,
-  open_on_setup = false,
+  open_on_setup = true,
   ignore_ft_on_setup = {
     "startify",
     "dashboard",
@@ -66,7 +68,6 @@ nvim_tree.setup {
   },
   view = {
     width = 30,
-    height = 30,
     side = "left",
     mappings = {
       list = {
@@ -82,9 +83,6 @@ nvim_tree.setup {
     cmd = "trash",
     require_confirm = true,
   },
-  renderer = {
-  root_folder_modifier = ":t"
-  }
 }
 
 -- TODO Should be fix, it doesnt work (collide with telescope when open nvim and find for a file)

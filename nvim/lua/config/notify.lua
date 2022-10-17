@@ -10,4 +10,4 @@ notification_manager.setup()
 vim.notify = notification_manager
 
 -- telescope extension
-require("telescope").load_extension("notify")
+----require("telescope").load_extension("notify")

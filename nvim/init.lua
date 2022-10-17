@@ -1,36 +1,36 @@
 require "utils"
 
 -- vim options
-require "user.options"
+require "config.options"
 
 -- remapping 
-require "user.keymaps"
+require "config.keymaps"
 
 -- load plugins
-require "user.plugins"
+require "config.plugins"
 
 -- notification manager for error and warnings
-require "user.notify"
+require "config.notify"
 
 -- theme
-require "user.colorscheme"
+require "config.colorscheme"
 
 -- plugins config
 -- core 
-require "user.cmp"
-require "user.lsp"
-require "user.telescope"
-require "user.treesitter"
-require "user.autopairs"
-require "user.comment"
-require "user.gitsigns"
-require "user.nvim-tree"
-require "user.bufferline"
-require "user.lualine"
-require "user.toggleterm"
-require "user.project"
-require "user.impatient"
-require "user.indentline"
-require "user.alpha"
-require "user.whichkey"
-require "user.autocommands"
+require "config.cmp"
+require "config.lsp"
+require "config.telescope"
+require "config.treesitter"
+require "config.autopairs"
+require "config.comment"
+require "config.gitsigns"
+require "config.nvim-tree"
+require "config.bufferline"
+require "config.lualine"
+require "config.toggleterm"
+require "config.project"
+require "config.impatient"
+require "config.indentline"
+require "config.alpha"
+require "config.whichkey"
+require "config.autocommands"
