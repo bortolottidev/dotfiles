@@ -1,5 +1,5 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
+local configs = _SAFE_LOAD_PLUGIN("nvim-treesitter.configs")
+if not configs then
 	return
 end
 

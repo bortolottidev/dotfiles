@@ -1,8 +1,8 @@
-local status_ok, project = pcall(require, "project_nvim")
-if not status_ok then
-  vim.notify("PROJECT not working")
+local project = _SAFE_LOAD_PLUGIN("project_nvim")
+if not project then
 	return
 end
+
 project.setup({
 	---@usage set to false to disable project.nvim.
 	--- This is on by default since it's currently the expected behavior.
