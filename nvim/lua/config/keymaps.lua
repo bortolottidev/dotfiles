@@ -35,6 +35,13 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
+-- directly go to buffer number
+for i = 0,9,1
+do
+  keymap("n", "<leader>" .. i, ":lua require('bufferline').go_to_buffer(" .. i .. ", true)<CR>", opts)
+end
+keymap("n", "<leader>$", ":lua require('bufferline').go_to_buffer(-1, true)<CR>", opts)
+keymap("n", "<S-t>", ":BufferLineTogglePin<CR>", opts)
 
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
