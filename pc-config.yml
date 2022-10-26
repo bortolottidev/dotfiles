@@ -2,6 +2,8 @@
 # account=$USER
 - hosts: localhost
   become: yes
+  vars:
+    zdotdir: ~/.config/zsh
   tasks:
   - name: update arch packages
     pacman:
@@ -22,16 +24,57 @@
     pacman: name=fortune-mod
   - name: install kitty for coding
     pacman: name=kitty
+  - name: install docker-compose
+    pacman: name=docker-compose
   - name: install zsh for console
     pacman: name=zsh
-  - name: change shell
-    shell: chsh -s `which zsh`
+  - name: set default shell to zsh
+    shell: usermod --shell $(which zsh) {{ account }}
+  - name: set zshenv if not exists
+    shell: 
+      cmd: |
+        if [[ -f  ~/.zshenv ]]
+        then
+          echo ".zshenv already exists, nothing to do."
+        else
+          echo ".zshenv does not exist on your filesystem."
+          echo "export ZDOTDIR={{ zdotdir }}"  > ~/.zshenv
+          echo "[[ -f \$ZDOTDIR/.zshenv ]] && . \$ZDOTDIR/.zshenv" >> ~/.zshenv
+        fi
+    become_user: "{{ account }}"
+  - name: create zsh plugsin folder if not exists
+    shell: 
+      cmd: |
+        if [[ -d  {{ zdotdir }}/plugins ]]
+        then
+          echo "plugins directory already exists, nothing to do."
+        else
+          mkdir {{ zdotdir }}/plugins
+          mkdir {{ zdotdir }}/custom
+          mkdir {{ zdotdir }}/custom/plugins
+        fi
+    become_user: "{{ account }}"
   - name: install ohmyzsh
-    shell: curl -L https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    shell:
+      cmd: |
+        if [[ ! -d  {{ zdotdir }}/plugins/.oh-my-zsh ]]
+        then
+          ZSH={{ zdotdir }}/plugins/.oh-my-zsh sh -c "$(curl -L https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+          rm ${HOME}/.zshrc
+        else
+          echo "omzsh already installed, nothing to do."
+        fi
+    become_user: "{{ account }}"
   - name: install autosuggestion plugin
+    become_user: "{{ account }}"
     ansible.builtin.git:
       repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-      dest: "~/oh-my-zsh/plugins/zsh-autosuggestions"
+      dest: "{{ zdotdir }}/custom/plugins/zsh-autosuggestions"
+  - name: install syntax highliting plugin
+    become_user: "{{ account }}"
+    ansible.builtin.git:
+      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+      dest: "{{ zdotdir }}/custom/plugins/zsh-syntax-highlighting"
 
     # Development
 
