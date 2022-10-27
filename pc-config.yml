@@ -1,6 +1,8 @@
 ## Remember to call it with extra vars
 # account=$USER
+---
 - hosts: localhost
+  gather_facts: yes
   become: yes
   vars:
     zdotdir: ~/.config/zsh
@@ -9,27 +11,37 @@
     pacman:
       update_cache: yes
       upgrade: yes 
+    when: ansible_distribution == "Arch"
 
     # Tools 
 
   - name: install unzip
     pacman: name=unzip
+    when: ansible_distribution == "Arch"
   - name: install pbcopy required by nvim
     pacman: name=xsel
+    when: ansible_distribution == "Arch"
   - name: install ripgrep in order to grep string in telescope
     pacman: name=ripgrep
+    when: ansible_distribution == "Arch"
   - name: install vnstat
     pacman: name=vnstat
+    when: ansible_distribution == "Arch"
   - name: install fortune for random phrase at nvim start
     pacman: name=fortune-mod
+    when: ansible_distribution == "Arch"
   - name: install kitty for coding
     pacman: name=kitty
+    when: ansible_distribution == "Arch"
   - name: install docker-compose
     pacman: name=docker-compose
+    when: ansible_distribution == "Arch"
   - name: install zsh for console
     pacman: name=zsh
+    when: ansible_distribution == "Arch"
   - name: set default shell to zsh
     shell: usermod --shell $(which zsh) {{ account }}
+    when: ansible_distribution == "Arch"
   - name: set zshenv if not exists
     shell: 
       cmd: |
@@ -81,10 +93,13 @@
   - name: install node
     pacman:
       name: ['nodejs', 'npm']
+    when: ansible_distribution == "Arch"
   - name: install nvim
     pacman: name=neovim
+    when: ansible_distribution == "Arch"
   - name: install fira code release
     pacman: name=ttf-fira-code
+    when: ansible_distribution == "Arch"
   - name: create directory fonts if not present
     file:
       path: ~/.local/share/fonts/nerd-fonts
@@ -104,12 +119,16 @@
 
   - name: install browser
     pacman: name=chromium
+    when: ansible_distribution == "Arch"
   - name: install polybar
     pacman: name=polybar
+    when: ansible_distribution == "Arch"
   - name: install rofi launcher
     pacman: name=rofi
+    when: ansible_distribution == "Arch"
   - name: install TMUX
     pacman: name=tmux
+    when: ansible_distribution == "Arch"
   - name: install TMUX plugin manager
     ansible.builtin.git:
       repo: https://github.com/tmux-plugins/tpm
