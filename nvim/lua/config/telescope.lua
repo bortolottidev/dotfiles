@@ -91,7 +91,8 @@ telescope.setup {
     -- extension_name = {
     --   extension_config_key = value,
     -- }
-    notify = {}
+    notify = {},
+    projects = {},
     -- please take a look at the readme of the extension you want to configure
   },
 }

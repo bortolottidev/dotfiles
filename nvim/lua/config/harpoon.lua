@@ -1,4 +1,4 @@
-local harpoon = _SAFE_LOAD_PLUGIN("harpoon") 
+local harpoon = _SAFE_LOAD_PLUGIN("harpoon")
 if not harpoon then
   return
 end
