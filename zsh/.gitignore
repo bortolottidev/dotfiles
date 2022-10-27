@@ -1,0 +1,26 @@
+.antidote/
+.cache/
+.plugins/
+.zplugins/
+.zcompcache/
+.zcompdump*
+.zdirs
+.zhistory
+.zplugins/
+.zsh_history
+.zsh_plugins.zsh
+.zsh_sessions/
+.external/
+*.cache
+*.bak
+*.local
+*.local.zsh
+*.zwc
+*.zwc.old
+.zplugins.zsh
+~*
+.zephyr/
+
+# plugin and custom plugins repo directorieies
+plugins
+custom
