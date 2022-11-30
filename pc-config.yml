@@ -94,6 +94,10 @@
     pacman:
       name: ['nodejs', 'npm']
     when: '"Arch" in ansible_distribution'
+  - name: install node virtual machine
+    shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+    become_user: "{{ account }}"
+    when: '"Arch" in ansible_distribution'
   - name: install nvim
     pacman: name=neovim
     when: '"Arch" in ansible_distribution'
