@@ -1,6 +1,38 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# ------- OLD CONFIGS --------
+
+alias ls='ls -alG'
+
+complete -C /opt/vault/vault vault
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
+source <(kubectl completion bash)
+
+# Tricks to avoid using sudo but install globally packages
+# https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
+# NPM_PACKAGES="${HOME}/.npm-packages"
+# alias ng='~/.npm-packages/bin/ng'
+# alias firebase='~/.npm-packages/bin/firebase'
+# alias heroku='~/.npm-packages/bin/heroku'
+# alias ngh='~/.npm-packages/bin/ngh'
+# alias nodemon='~/.npm-packages/bin/nodemon'
+# alias gulp='~/.npm-packages/bin/gulp'
+#
+# export PATH="$PATH:$NPM_PACKAGES/bin"
+# export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+
+# ^ ------- OLD CONFIGS -------- ^
+
 # Path to your oh-my-zsh installation.
 export ZDOTDIR="$HOME/.config/zsh"
 export ZSH="$ZDOTDIR/plugins/.oh-my-zsh"

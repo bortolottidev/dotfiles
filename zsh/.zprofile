@@ -33,7 +33,7 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
 fi
 
 export EDITOR='nvim'
-export VISUAL='code'
+export VISUAL='nvim'
 export PAGER='less'
 
 # use `< file` to quickly view the contents of any file.
