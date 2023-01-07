@@ -59,12 +59,20 @@
       cmd: |
         if [[ -d  {{ zdotdir }}/plugins ]]
         then
-          echo "plugins directory already exists, nothing to do."
+          echo "{{ zdotdir }}/plugins directory already exists, nothing to do."
         else
           mkdir {{ zdotdir }}/plugins
           mkdir {{ zdotdir }}/custom
           mkdir {{ zdotdir }}/custom/plugins
         fi
+    become_user: "{{ account }}"
+  - name: create zsh plugins directory exists (in a better way?)
+    file:
+      path: "{{ zdotdir }}/plugins"
+      state: directory
+      mode: 0775
+      recurse: yes
+    become: true
     become_user: "{{ account }}"
   - name: install ohmyzsh
     shell:
