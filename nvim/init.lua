@@ -18,7 +18,11 @@ require "config.colorscheme"
 -- plugins config
 -- core plugins
 require "config.cmp"
--- require "config.lsp"
+
+local lsp = require('lsp-zero')
+lsp.preset('recommended')
+lsp.setup()
+
 require "config.telescope"
 require "config.treesitter"
 require "config.autopairs"
