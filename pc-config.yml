@@ -11,37 +11,37 @@
     pacman:
       update_cache: yes
       upgrade: yes 
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
 
     # Tools 
 
   - name: install unzip
     pacman: name=unzip
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install pbcopy required by nvim
     pacman: name=xsel
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install ripgrep in order to grep string in telescope
     pacman: name=ripgrep
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install vnstat
     pacman: name=vnstat
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install fortune for random phrase at nvim start
     pacman: name=fortune-mod
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install kitty for coding
     pacman: name=kitty
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install docker-compose
     pacman: name=docker-compose
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install zsh for console
     pacman: name=zsh
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: set default shell to zsh
     shell: usermod --shell $(which zsh) {{ account }}
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: set zshenv if not exists
     shell: 
       cmd: |
@@ -101,13 +101,17 @@
   - name: install node
     pacman:
       name: ['nodejs', 'npm']
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
+  - name: install node virtual machine
+    shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
+    become_user: "{{ account }}"
+    when: '"Arch" in ansible_distribution'
   - name: install nvim
     pacman: name=neovim
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install fira code release
     pacman: name=ttf-fira-code
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: create directory fonts if not present
     file:
       path: ~/.local/share/fonts/nerd-fonts
@@ -122,21 +126,24 @@
       dest: "~/.local/share/fonts/nerd-fonts/Fira Code Regular Nerd Font Complete.ttf"
     become: true
     become_user: "{{ account }}"
+  - name: install database management
+    pacman: name=dbeaver
+    when: '"Arch" in ansible_distribution'
 
     # Environment
 
   - name: install browser
     pacman: name=chromium
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install polybar
     pacman: name=polybar
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install rofi launcher
     pacman: name=rofi
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install TMUX
     pacman: name=tmux
-    when: ansible_distribution == "Arch"
+    when: '"Arch" in ansible_distribution'
   - name: install TMUX plugin manager
     ansible.builtin.git:
       repo: https://github.com/tmux-plugins/tpm
