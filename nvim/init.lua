@@ -16,9 +16,9 @@ require "config.notify"
 require "config.colorscheme"
 
 -- plugins config
--- core 
+-- core plugins
 require "config.cmp"
-require "config.lsp"
+-- require "config.lsp"
 require "config.telescope"
 require "config.treesitter"
 require "config.autopairs"
@@ -35,3 +35,5 @@ require "config.alpha"
 require "config.whichkey"
 require "config.autocommands"
 require "config.harpoon"
+
+-- test plugins
