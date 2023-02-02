@@ -26,6 +26,17 @@ vim.diagnostic.config({
   },
 })
 
+-- Custom <leader>gr keymaps
+lsp.set_preferences({
+  set_lsp_keymaps = { omit = { 'gr' } }
+})
+lsp.on_attach(function(client, bufnr)
+  local opts = {buffer = bufnr}
+  local bind = vim.keymap.set
+
+  bind('n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
+end)
+
 -- Configure lua language server for neovim
 -- required to avoid "undefined vim" false warning
 lsp.nvim_workspace()
