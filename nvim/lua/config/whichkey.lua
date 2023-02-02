@@ -85,13 +85,16 @@ local mappings = {
   },
   ["d"] = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Diagnostic"},
   ["n"] = { "<cmd> NvimTreeFocus <cr>", "Focus on Explorer"},
+  ["N"] = { "<cmd> NvimTreeFindFile <cr>", "Find file on Explorer"},
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
-    "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+    -- damn theme is so hard to customize
+    -- "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+    "<cmd>lua require('telescope.builtin').find_files({layout_strategy='vertical',layout_config={width = 0.5}})<cr>",
     "Find files",
   },
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },

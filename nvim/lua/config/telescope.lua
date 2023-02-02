@@ -10,6 +10,7 @@ telescope.setup {
 
     prompt_prefix = " ",
     selection_caret = " ",
+    -- could lead to negative perfomance
     path_display = { "smart" },
 
     mappings = {
