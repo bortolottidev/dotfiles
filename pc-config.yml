@@ -14,6 +14,11 @@
     when: '"Arch" in ansible_distribution'
 
     # Tools 
+  - name: Update homebrew installer
+    community.general.homebrew:
+      update_homebrew: yes
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
 
   - name: install unzip
     pacman: name=unzip
@@ -21,18 +26,36 @@
   - name: install pbcopy required by nvim
     pacman: name=xsel
     when: '"Arch" in ansible_distribution'
-  - name: install ripgrep in order to grep string in telescope
+  - name: install ripgrep in order to grep string in telescope (Arch)
     pacman: name=ripgrep
     when: '"Arch" in ansible_distribution'
-  - name: install vnstat
+  - name: install ripgrep in order to grep string in telescope (MAC)
+    community.general.homebrew: 
+      name: ripgrep
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
+  - name: install vnstat required by i3
     pacman: name=vnstat
     when: '"Arch" in ansible_distribution'
-  - name: install fortune for random phrase at nvim start
+  - name: install fortune for random phrase at nvim start (Arch)
     pacman: name=fortune-mod
     when: '"Arch" in ansible_distribution'
-  - name: install kitty for coding
+  - name: install fortune for random phrase at nvim start (MAC)
+    community.general.homebrew: 
+      name: ripgrep
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
+  - name: install kitty terminal (Arch)
     pacman: name=kitty
     when: '"Arch" in ansible_distribution'
+  - name: install kitty terminal (Mac)
+    homebrew_cask:
+      name: kitty
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
   - name: install docker-compose
     pacman: name=docker-compose
     when: '"Arch" in ansible_distribution'
@@ -54,7 +77,7 @@
           echo "[[ -f \$ZDOTDIR/.zshenv ]] && . \$ZDOTDIR/.zshenv" >> ~/.zshenv
         fi
     become_user: "{{ account }}"
-  - name: create zsh plugsin folder if not exists
+  - name: create zsh plugins folder if not exists
     shell: 
       cmd: |
         if [[ -d  {{ zdotdir }}/plugins ]]
@@ -102,13 +125,25 @@
     pacman:
       name: ['nodejs', 'npm']
     when: '"Arch" in ansible_distribution'
-  - name: install node virtual machine
+  - name: install Node Version Manager (Arch)
     shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
     become_user: "{{ account }}"
     when: '"Arch" in ansible_distribution'
-  - name: install nvim
+  - name: install Node Version Manager (Mac)
+    homebrew:
+      name: nvm
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
+  - name: install nvim (Arch)
     pacman: name=neovim
     when: '"Arch" in ansible_distribution'
+  - name: install nvim (Mac)
+    homebrew:
+      name: neovim
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
   - name: install fira code release
     pacman: name=ttf-fira-code
     when: '"Arch" in ansible_distribution'
