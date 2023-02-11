@@ -1,0 +1,96 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: install kitty terminal (Arch)
+    pacman: name=kitty
+    when: '"Arch" in ansible_distribution'
+
+  - name: install kitty terminal (MAC)
+    homebrew_cask:
+      name: kitty
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
+
+  - name: install docker-compose
+    pacman: name=docker-compose
+    when: '"Arch" in ansible_distribution'
+
+  - name: install zsh for console
+    pacman: name=zsh
+    when: '"Arch" in ansible_distribution'
+
+  - name: set default shell to zsh
+    shell: usermod --shell $(which zsh) {{ account }}
+    when: '"Arch" in ansible_distribution'
+
+  - name: set zshenv if not exists
+    shell:
+      cmd: |
+        if [[ -f  ~/.zshenv ]]
+        then
+          echo ".zshenv already exists, nothing to do"
+        else
+          echo ".zshenv does not exist on your filesystem. creating brrrrrr..."
+          echo "export ZDOTDIR={{ zdotdir }}"  > ~/.zshenv
+          echo "[[ -f \$ZDOTDIR/.zshenv ]] && . \$ZDOTDIR/.zshenv" >> ~/.zshenv
+        fi
+    become_user: "{{ account }}"
+    register: zshenv_output
+
+  - name: print zshenv output
+    debug:
+      var:  zshenv_output.stdout_lines
+
+  - name: create zsh plugins folder
+    file:
+      path: "{{ zdotdir }}/plugins"
+      state: directory
+      mode: 0755
+      recurse: yes
+    become: true
+    become_user: "{{ account }}"
+
+  - name: create zsh custom plugins folder
+    file:
+      path: "{{ zdotdir }}/custom/plugins"
+      state: directory
+      mode: 0755
+      recurse: yes
+    become: true
+    become_user: "{{ account }}"
+
+  - name: install ohmyzsh
+    shell:
+      cmd: |
+        if [[ ! -d  {{ zdotdir }}/plugins/.oh-my-zsh ]]
+        then
+          KEEP_ZSHRC=yes ZSH={{ zdotdir }}/plugins/.oh-my-zsh sh -c "$(curl -L https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+          [ -e ${HOME}/.zshrc ] && rm ${HOME}/.zshrc
+          echo "omzsh installed correctly"
+        else
+          echo "omzsh already installed, nothing to do"
+        fi
+    become_user: "{{ account }}"
+    register: omz_output
+
+  - name: print omz output
+    debug:
+      var:  omz_output.stdout_lines
+
+  - name: install autosuggestion plugin
+    become_user: "{{ account }}"
+    ansible.builtin.git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: "{{ zdotdir }}/custom/plugins/zsh-autosuggestions"
+      version: v0.7.0
+      force: true
+
+  - name: install syntax highliting plugin
+    become_user: "{{ account }}"
+    ansible.builtin.git:
+      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
+      dest: "{{ zdotdir }}/custom/plugins/zsh-syntax-highlighting"
+      version: 0.7.1
+      force: true
