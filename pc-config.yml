@@ -74,9 +74,15 @@
   - name: install rofi launcher
     pacman: name=rofi
     when: '"Arch" in ansible_distribution'
-  - name: install TMUX
+  - name: install TMUX (Arch)
     pacman: name=tmux
     when: '"Arch" in ansible_distribution'
+  - name: install TMUX (MAC)
+    homebrew:
+      name: tmux
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
   - name: install TMUX plugin manager
     ansible.builtin.git:
       repo: https://github.com/tmux-plugins/tpm
