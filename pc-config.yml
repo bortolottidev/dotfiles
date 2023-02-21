@@ -1,123 +1,21 @@
 ## Remember to call it with extra vars
 # account=$USER
 ---
+- name: include update.yml
+  ansible.builtin.import_playbook: update.yml
+
+- name: include tools.yml
+  ansible.builtin.import_playbook: tools.yml
+
+- name: include environment.yml
+  ansible.builtin.import_playbook: environment.yml
+  vars:
+    zdotdir: ~/.config/zsh
+
 - hosts: localhost
   gather_facts: yes
   become: yes
-  vars:
-    zdotdir: ~/.config/zsh
   tasks:
-  - name: update arch packages
-    pacman:
-      update_cache: yes
-      upgrade: yes 
-    when: '"Arch" in ansible_distribution'
-
-    # Tools 
-  - name: Update homebrew installer
-    community.general.homebrew:
-      update_homebrew: yes
-    when: '"MacOSX" in ansible_distribution'
-    become_user: "{{ account }}"
-
-  - name: install unzip
-    pacman: name=unzip
-    when: '"Arch" in ansible_distribution'
-  - name: install pbcopy required by nvim
-    pacman: name=xsel
-    when: '"Arch" in ansible_distribution'
-  - name: install ripgrep in order to grep string in telescope (Arch)
-    pacman: name=ripgrep
-    when: '"Arch" in ansible_distribution'
-  - name: install ripgrep in order to grep string in telescope (MAC)
-    community.general.homebrew: 
-      name: ripgrep
-      state: present
-    when: '"MacOSX" in ansible_distribution'
-    become_user: "{{ account }}"
-  - name: install vnstat required by i3
-    pacman: name=vnstat
-    when: '"Arch" in ansible_distribution'
-  - name: install fortune for random phrase at nvim start (Arch)
-    pacman: name=fortune-mod
-    when: '"Arch" in ansible_distribution'
-  - name: install fortune for random phrase at nvim start (MAC)
-    community.general.homebrew: 
-      name: ripgrep
-      state: present
-    when: '"MacOSX" in ansible_distribution'
-    become_user: "{{ account }}"
-  - name: install kitty terminal (Arch)
-    pacman: name=kitty
-    when: '"Arch" in ansible_distribution'
-  - name: install kitty terminal (Mac)
-    homebrew_cask:
-      name: kitty
-      state: present
-    when: '"MacOSX" in ansible_distribution'
-    become_user: "{{ account }}"
-  - name: install docker-compose
-    pacman: name=docker-compose
-    when: '"Arch" in ansible_distribution'
-  - name: install zsh for console
-    pacman: name=zsh
-    when: '"Arch" in ansible_distribution'
-  - name: set default shell to zsh
-    shell: usermod --shell $(which zsh) {{ account }}
-    when: '"Arch" in ansible_distribution'
-  - name: set zshenv if not exists
-    shell: 
-      cmd: |
-        if [[ -f  ~/.zshenv ]]
-        then
-          echo ".zshenv already exists, nothing to do."
-        else
-          echo ".zshenv does not exist on your filesystem."
-          echo "export ZDOTDIR={{ zdotdir }}"  > ~/.zshenv
-          echo "[[ -f \$ZDOTDIR/.zshenv ]] && . \$ZDOTDIR/.zshenv" >> ~/.zshenv
-        fi
-    become_user: "{{ account }}"
-  - name: create zsh plugins folder if not exists
-    shell: 
-      cmd: |
-        if [[ -d  {{ zdotdir }}/plugins ]]
-        then
-          echo "{{ zdotdir }}/plugins directory already exists, nothing to do."
-        else
-          mkdir {{ zdotdir }}/plugins
-          mkdir {{ zdotdir }}/custom
-          mkdir {{ zdotdir }}/custom/plugins
-        fi
-    become_user: "{{ account }}"
-  - name: create zsh plugins directory exists (in a better way?)
-    file:
-      path: "{{ zdotdir }}/plugins"
-      state: directory
-      mode: 0775
-      recurse: yes
-    become: true
-    become_user: "{{ account }}"
-  - name: install ohmyzsh
-    shell:
-      cmd: |
-        if [[ ! -d  {{ zdotdir }}/plugins/.oh-my-zsh ]]
-        then
-          ZSH={{ zdotdir }}/plugins/.oh-my-zsh sh -c "$(curl -L https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-          rm ${HOME}/.zshrc
-        else
-          echo "omzsh already installed, nothing to do."
-        fi
-    become_user: "{{ account }}"
-  - name: install autosuggestion plugin
-    become_user: "{{ account }}"
-    ansible.builtin.git:
-      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-      dest: "{{ zdotdir }}/custom/plugins/zsh-autosuggestions"
-  - name: install syntax highliting plugin
-    become_user: "{{ account }}"
-    ansible.builtin.git:
-      repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-      dest: "{{ zdotdir }}/custom/plugins/zsh-syntax-highlighting"
 
     # Development
 
@@ -176,9 +74,15 @@
   - name: install rofi launcher
     pacman: name=rofi
     when: '"Arch" in ansible_distribution'
-  - name: install TMUX
+  - name: install TMUX (Arch)
     pacman: name=tmux
     when: '"Arch" in ansible_distribution'
+  - name: install TMUX (MAC)
+    homebrew:
+      name: tmux
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
   - name: install TMUX plugin manager
     ansible.builtin.git:
       repo: https://github.com/tmux-plugins/tpm

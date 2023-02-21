@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: Some debug log
+    ansible.builtin.debug:
+      msg: Hey {{ account }} using {{ ansible_distribution }}!
+
+  - name: update arch packages
+    pacman:
+      update_cache: yes
+      upgrade: yes 
+    when: '"Arch" in ansible_distribution'
+
+  - name: Update homebrew installer
+    community.general.homebrew:
+      update_homebrew: yes
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"

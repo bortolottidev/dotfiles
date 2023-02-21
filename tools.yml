@@ -1,0 +1,37 @@
+---
+- hosts: localhost
+  tasks:
+
+  - name: install unzip
+    pacman: name=unzip
+    when: '"Arch" in ansible_distribution'
+
+  - name: install pbcopy required by nvim
+    pacman: name=xsel
+    when: '"Arch" in ansible_distribution'
+
+  - name: install ripgrep in order to grep string in telescope (Arch)
+    pacman: name=ripgrep
+    when: '"Arch" in ansible_distribution'
+
+  - name: install ripgrep in order to grep string in telescope (MAC)
+    community.general.homebrew:
+      name: ripgrep
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
+
+  - name: install vnstat (required by i3)
+    pacman: name=vnstat
+    when: '"Arch" in ansible_distribution'
+
+  - name: install fortune for random phrase (required by nvim) (Arch)
+    pacman: name=fortune-mod
+    when: '"Arch" in ansible_distribution'
+
+  - name: install fortune for random phrase (required by nvim) (MAC)
+    community.general.homebrew:
+      name: fortune
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
