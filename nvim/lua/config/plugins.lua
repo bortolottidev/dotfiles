@@ -102,6 +102,10 @@ return packer.startup(function(use)
     commit = "d96eaa914aab6cfc4adccb34af421bdd496468b0",
     requires = { {"nvim-lua/plenary.nvim"} }
   }
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    requires = { {"nvim-lua/plenary.nvim"} }
+  }
 
   -- HARPOOOOON
   use {
