@@ -3,9 +3,9 @@
 
 # ------- OLD CONFIGS --------
 
-alias ls='ls -alG'
-
-complete -C /opt/vault/vault vault
+# alias ls='ls -alG'
+#
+# complete -C /opt/vault/vault vault
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator
@@ -16,7 +16,10 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
-source <(kubectl completion bash)
+# Fix command not found: compdef
+autoload -Uz compinit
+compinit
+source <(kubectl completion zsh)
 
 # Tricks to avoid using sudo but install globally packages
 # https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
