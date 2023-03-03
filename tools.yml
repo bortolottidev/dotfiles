@@ -35,3 +35,10 @@
       state: present
     when: '"MacOSX" in ansible_distribution'
     become_user: "{{ account }}"
+
+  - name: install fortune for lazygit (MAC)
+    community.general.homebrew:
+      name: lazygit
+      state: present
+    when: '"MacOSX" in ansible_distribution'
+    become_user: "{{ account }}"
