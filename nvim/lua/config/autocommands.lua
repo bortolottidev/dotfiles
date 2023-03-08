@@ -31,6 +31,6 @@ vim.cmd [[
 
   augroup _lsp
     autocmd!
-    autocmd BufWritePre * lua vim.lsp.buf.format({ timeout_ms=3000, async=false, filter = function(client) return client.name ~= "tsserver" end })
+    autocmd BufWritePre * lua vim.lsp.buf.format({ timeout_ms=3000, async=false, filter = function(client) return client.name == "tsserver" end })
   augroup end
 ]]
