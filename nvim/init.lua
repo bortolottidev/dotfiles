@@ -3,7 +3,7 @@ require "utils"
 -- vim options
 require "config.options"
 
--- remapping 
+-- remapping
 require "config.keymaps"
 
 -- load plugins
