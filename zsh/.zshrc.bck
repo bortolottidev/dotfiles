@@ -112,7 +112,6 @@ plugins=(
   git
   zsh-syntax-highlighting
   zsh-autosuggestions
-  terraform
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -145,6 +144,3 @@ export VISUAL='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias n="nvim ."
-
-export LOCAL_SHARE="/Users/danielebortolotti/.local/share"
-export PATH="$LOCAL_SHARE:$PATH"
