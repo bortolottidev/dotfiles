@@ -51,11 +51,11 @@ lsp.setup()
 -- Configure null ls in order to add standardjs auto formatter (@see autommands.lua)
 null_ls.setup({
   sources = {
-    null_ls.builtins.diagnostics.standardjs.with({
-      filetype = { "javascript", "javascriptreact" }
-    }),
-    null_ls.builtins.formatting.standardjs.with({
-      filetype = { "javascript", "javascriptreact" }
-    }),
+    --[[ null_ls.builtins.diagnostics.standardjs.with({ ]]
+    --[[   filetype = { "javascript", "javascriptreact" } ]]
+    --[[ }), ]]
+    --[[ null_ls.builtins.formatting.standardjs.with({ ]]
+    --[[   filetype = { "javascript", "javascriptreact" } ]]
+    --[[ }), ]]
   },
 })

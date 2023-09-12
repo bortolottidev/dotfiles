@@ -10,6 +10,7 @@ end
 
 local tree_cb = nvim_tree_config.nvim_tree_callback
 
+-- totally ignored by setup on init.lua
 nvim_tree.setup {
   auto_reload_on_write = true,
   reload_on_bufenter = true,

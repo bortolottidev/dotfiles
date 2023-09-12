@@ -28,6 +28,8 @@ require "config.autopairs"
 require "config.comment"
 require "config.gitsigns"
 require "config.nvim-tree"
+require'nvim-tree'.setup()
+
 require "config.bufferline"
 require "config.lualine"
 require "config.toggleterm"
