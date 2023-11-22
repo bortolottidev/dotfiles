@@ -39,10 +39,10 @@ export PAGER='less'
 # use `< file` to quickly view the contents of any file.
 [[ -z "$READNULLCMD" ]] || READNULLCMD=$PAGER
 
-export TZ="America/New_York"
-export LANG="en_US.UTF-8"
-export LANGUAGE="en"
-export LC_ALL="en_US.UTF-8"
+export TZ="Europe/Rome"
+export LANG="it_IT.UTF-8"
+export LANGUAGE="it"
+export LC_ALL="it_IT.UTF-8"
 
 # Ensure path arrays do not contain duplicates
 typeset -gU cdpath fpath mailpath path

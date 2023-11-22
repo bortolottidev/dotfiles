@@ -148,3 +148,8 @@ alias n="nvim ."
 
 export LOCAL_SHARE="/Users/danielebortolotti/.local/share"
 export PATH="$LOCAL_SHARE:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/danielebortolotti/.local/share/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
