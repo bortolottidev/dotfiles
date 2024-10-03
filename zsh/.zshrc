@@ -13,6 +13,10 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# Config brew in shell
+eval $(/opt/homebrew/bin/brew shellenv)
+
+# Config nvm in shell
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
