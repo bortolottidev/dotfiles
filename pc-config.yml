@@ -1,5 +1,6 @@
 ## Remember to call it with extra vars
-# account=$USER
+# Launch command
+# ansible-playbook pc-config.yml --extra-vars "account='$USER'" --ask-become-pass
 ---
 - name: include update.yml
   ansible.builtin.import_playbook: update.yml
@@ -55,7 +56,7 @@
     become_user: "{{ account }}"
   - name: install fonts
     ansible.builtin.get_url:
-      url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete.ttf 
+      url: https://github.com/ryanoasis/nerd-fonts/raw/refs/tags/v2.3.3/patched-fonts/FiraCode/Regular/complete/Fira%20Code%20Regular%20Nerd%20Font%20Complete.ttf
       dest: "~/.local/share/fonts/nerd-fonts/Fira Code Regular Nerd Font Complete.ttf"
     become: true
     become_user: "{{ account }}"
