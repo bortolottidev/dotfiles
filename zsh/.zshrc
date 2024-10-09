@@ -23,7 +23,8 @@ source $(brew --prefix nvm)/nvm.sh
 # Fix command not found: compdef
 autoload -Uz compinit
 compinit
-source <(kubectl completion zsh)
+# Load kubectl commands
+# source <(kubectl completion zsh)
 
 # Tricks to avoid using sudo but install globally packages
 # https://github.com/sindresorhus/guides/blob/main/npm-global-without-sudo.md
